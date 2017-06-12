@@ -81,8 +81,6 @@ config BR2_PACKAGE_WPEWEBKIT_ENABLE_MEDIA_SOURCE
 	help
 	  Enable Media Source Extensions
 
-menu "Encrypted Media Extensions options (EME)"
-
 config BR2_PACKAGE_WPEWEBKIT_USE_ENCRYPTED_MEDIA_V3
 	bool "Encrypted Media Extensions (EME) v3"
 	default y
@@ -91,30 +89,13 @@ config BR2_PACKAGE_WPEWEBKIT_USE_ENCRYPTED_MEDIA_V3
 
 if BR2_PACKAGE_WPEWEBKIT_USE_ENCRYPTED_MEDIA_V3
 
-choice
-  bool "PlayReady backend"
-  depends on BR2_PACKAGE_WPEWEBKIT_USE_ENCRYPTED_MEDIA_V3
-  default BR2_PACKAGE_WPEWEBKIT_USE_PLAYREADY
-  help
-    Choose the Playready backend.
-
-config BR2_PACKAGE_WPEWEBKIT_USE_PLAYREADY
-  bool "playready SDK"
-  depends on BR2_PACKAGE_PLAYREADY
-  help
-    Use the Microsoft Playready SDK
-
 config BR2_PACKAGE_WPEWEBKIT_USE_OPENCDM
   bool "OpenCDM sdk"
-  depends on BR2_PACKAGE_OPENCDM
+  depends on BR2_PACKAGE_OPENCDM && BR2_PACKAGE_WPEWEBKIT_USE_ENCRYPTED_MEDIA_V3
   help
     Use the OpenCDM SDK
 
-endchoice
-
 endif
-
-endmenu
 
 config BR2_PACKAGE_WPEWEBKIT_USE_GSTREAMER_GL
 	bool "gstreamer-gl"
